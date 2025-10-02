@@ -50,7 +50,7 @@ jobs:
     name: Check
     runs-on: ubuntu-24.04-arm
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           sparse-checkout: .github/actions
       - name: Check if the PR can be merged and checkout the merge and target commits
@@ -59,7 +59,7 @@ jobs:
           merged-as-untrusted: true
           target-as-trusted: true
 
-      - uses: cachix/install-nix-action@fc6e360bedc9ee72d75e701397f0bb30dce77568 # v31
+      - uses: cachix/install-nix-action@a809471b5c7c913aa67bec8f459a11a0decc3fce # v31
 
       - uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
         with:
@@ -70,7 +70,7 @@ jobs:
       - name: Build codeowners validator
         run: nix-build trusted/ci -A codeownersValidator
 
-      - uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
+      - uses: actions/create-github-app-token@0f859bf9e69e887678d5bbfbee594437cb440ffe # v2.1.0
         if: github.event_name == 'pull_request_target' && vars.OWNER_RO_APP_ID
         id: app-token
         with:
@@ -107,18 +107,18 @@ jobs:
     name: Request
     runs-on: ubuntu-24.04-arm
     steps:
-      - uses: cachix/install-nix-action@fc6e360bedc9ee72d75e701397f0bb30dce77568 # v31
+      - uses: cachix/install-nix-action@a809471b5c7c913aa67bec8f459a11a0decc3fce # v31
 
       # Important: Because we use pull_request_target, this checks out the base branch of the PR, not the PR head.
       # This is intentional, because we need to request the review of owners as declared in the base branch.
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           path: trusted
 
       - name: Build review request package
         run: nix-build trusted/ci -A requestReviews
 
-      - uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
+      - uses: actions/create-github-app-token@0f859bf9e69e887678d5bbfbee594437cb440ffe # v2.1.0
         if: github.event_name == 'pull_request_target' && vars.OWNER_APP_ID
         id: app-token
         with:
