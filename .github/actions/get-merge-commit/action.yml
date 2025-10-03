@@ -29,7 +29,7 @@ runs:
   steps:
     - id: commits
       if: ${{ !inputs.mergedSha && !inputs.targetSha }}
-      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
       with:
         script: |
           if (context.eventName == 'push') return core.setOutput('mergedSha', context.sha)
@@ -83,13 +83,13 @@ runs:
       # Would be great to do the checkouts in git worktrees of the existing spare checkout instead,
       # but Nix is broken with them:
       # https://github.com/NixOS/nix/issues/6073
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       with:
         ref: ${{ inputs.mergedSha || steps.commits.outputs.mergedSha }}
         path: untrusted
 
     - if: inputs.target-as-trusted && (inputs.targetSha || steps.commits.outputs.targetSha)
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       with:
         ref: ${{ inputs.targetSha || steps.commits.outputs.targetSha }}
         path: trusted
