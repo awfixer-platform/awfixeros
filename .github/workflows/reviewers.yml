@@ -62,7 +62,7 @@ jobs:
       # In the regular case, this workflow is called via workflow_call from the eval workflow directly.
       # In the more special case, when a PR is undrafted an eval run will have started already.
       - name: Wait for comparison to be done
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         id: eval
         with:
           script: |
