@@ -10,7 +10,7 @@ on:
 
 jobs:
   codeberg:
-    if: github.repository == '<owner>/<repo>'
+    if: github.repository == 'awfixer-platform/awfixeros'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
